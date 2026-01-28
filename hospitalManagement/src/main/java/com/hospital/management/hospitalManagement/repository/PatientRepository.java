@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface patientRepository extends JpaRepository<Patient,Long> {
+public interface PatientRepository extends JpaRepository<Patient,Long> {
 
     Patient findByName(String name);
     List<Patient> findByBirthDateOrEmail(LocalDate birthDate, String email);

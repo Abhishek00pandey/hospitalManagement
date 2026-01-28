@@ -1,9 +1,7 @@
 package com.hospital.management.hospitalManagement;
 
-import com.hospital.management.hospitalManagement.Dto.BloodGroupCountResponseEntity;
 import com.hospital.management.hospitalManagement.entity.Patient;
-import com.hospital.management.hospitalManagement.entity.type.bloodGroupType;
-import com.hospital.management.hospitalManagement.repository.patientRepository;
+import com.hospital.management.hospitalManagement.repository.PatientRepository;
 import com.hospital.management.hospitalManagement.service.patientService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +10,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
 public class PatientTests {
     @Autowired
-    private  patientRepository patientRepository;
+    private PatientRepository patientRepository;
     @Autowired
     private patientService patientService;
 
