@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Service
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,10 +26,12 @@ public class Appointment {
     private String reason;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name="patient_id",nullable = false) // it is not nullable because patient is required
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     @JoinColumn(nullable = false)
     private Doctor doctor;
 
