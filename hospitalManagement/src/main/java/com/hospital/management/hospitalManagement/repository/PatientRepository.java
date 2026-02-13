@@ -5,6 +5,7 @@ import com.hospital.management.hospitalManagement.entity.Patient;
 import com.hospital.management.hospitalManagement.entity.type.bloodGroupType;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 public interface PatientRepository extends JpaRepository<Patient,Long> {
@@ -38,7 +40,11 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
     @Query("update Patient p set p.name=:name where p.id=:id")
     int updateNameWithId(@Param("name") String name, @Param("id") Long id);
 
+//    @Query("SELECT p FROM Patient p LEFT JOIN FETCH p.appointment")
+//    List<Patient> findAllPatientsWithAppointment();
+
     @Query("SELECT p FROM Patient p LEFT JOIN FETCH p.appointment")
-    List<Patient> findAllPatientsWithAppointment();
+    List<Patient> findAllPatientWithAppointment();
+
 
 }
