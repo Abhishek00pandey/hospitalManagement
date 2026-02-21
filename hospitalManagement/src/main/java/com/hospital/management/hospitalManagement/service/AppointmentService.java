@@ -13,6 +13,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +30,7 @@ public class AppointmentService {
 
     // ✅ THIS IS THE METHOD YOUR CONTROLLER SHOULD CALL
     @Transactional
+    @Secured("ROLE_PATIENT")
     public AppointmentResponseDto createNewAppointment(CreateAppointmentRequestDto dto) {
 
         Long doctorId = dto.getDoctorId();
@@ -59,6 +62,7 @@ public class AppointmentService {
     // ---------------------------------------------
 
     @Transactional
+    @PreAuthorize("hasAuthority('appointment:write') OR #doctorId == authentication.principal.id)")
     public Appointment reAssignAppointment(Long appointmentId, Long doctorId) {
 
         Appointment appointment = appointmentRepository.findById(appointmentId)
@@ -75,6 +79,7 @@ public class AppointmentService {
 
     // ---------------------------------------------
 
+    @PreAuthorize("hasRole('ADMIN') OR (hasRole('DOCTOR') AND #doctorId == authentication.principal.id)")
     public List<AppointmentResponseDto> getAllAppointmentsOfDoctor(Long doctorId) {
 
         Doctor doctor = doctorRepository.findById(doctorId)
